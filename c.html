@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>c10</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+</body>
+</html>
+</head>
+<body>
+  <div class="verify-container">
+    <div class="header">
+      <div class="header-title">选择所有包含</div>
+      世上最萌小蛋糕<br>
+      的图片，点击后请点击验证
+    </div>
+    <div class="grid">
+      <div class="grid-item cake" onclick="select(this)"><img src="/c10/images/2.jpg"></div>
+      <div class="grid-item cake" onclick="select(this)"><img src="/c10/images/3.jpg"></div>
+      <div class="grid-item cake" onclick="select(this)"><img src="/c10/images/4.jpg"></div>
+      <div class="grid-item cake" onclick="select(this)"><img src="/c10/images/5.jpg"></div>
+      <div class="grid-item"      onclick="select(this)"><img src="/c10/images/1.jpg"></div>
+      <div class="grid-item cake" onclick="select(this)"><img src="/c10/images/6.jpg"></div>
+      <div class="grid-item cake" onclick="select(this)"><img src="/c10/images/7.jpg"></div>
+      <div class="grid-item cake" onclick="select(this)"><img src="/c10/images/8.jpg"></div>
+      <div class="grid-item cake" onclick="select(this)"><img src="/c10/images/9.jpg"></div>
+    </div>
+    <div class="footer">
+      <button class="info-btn">i</button>
+      <button id="verifyBtn" onclick="verify()">验证</button>
+    </div>
+  </div>
+
+  <!-- 奖励图片模态框 -->
+  <div id="rewardModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <div class="reward-content">
+        <img src="/c10/images/0.jpg" alt="隐藏奖励">
+        <p class="caption">你真是喵喵又咪咪呀！</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function select(el) {
+      el.classList.toggle('selected'); // 点击切换选中状态
+    }
+    function verify() {
+      const selectedItems = document.querySelectorAll('.selected');
+      const cakeItems = document.querySelectorAll('.cake');
+      
+      // 检查是否选中了所有蛋糕图片
+      const allCakesSelected = Array.from(cakeItems).every(item => item.classList.contains('selected'));
+      
+      // 检查是否只选中了蛋糕图片，没有选中其他图片
+      const onlyCakesSelected = Array.from(selectedItems).every(item => item.classList.contains('cake'));
+      
+      if (allCakesSelected && onlyCakesSelected) {
+        alert('恭喜你验证通过，已获得隐藏奖励。');
+        // 显示确认对话框
+        if (confirm('是否查看你的隐藏奖励？')) {
+          // 点击"是"时显示图片模态框
+          showRewardModal();
+        }
+        // 点击"否"时不执行任何操作
+      } else {
+        alert('请选择所有包含蛋糕的图片');
+      }
+    }
+    
+    // 模态框控制函数
+    function showRewardModal() {
+      const modal = document.getElementById('rewardModal');
+      modal.style.display = 'block';
+    }
+    
+    // 获取模态框元素
+    const modal = document.getElementById('rewardModal');
+    const closeBtn = document.getElementsByClassName('close')[0];
+    
+    // 点击关闭按钮隐藏模态框
+    closeBtn.onclick = function() {
+      modal.style.display = 'none';
+    }
+    
+    // 点击模态框外部区域隐藏模态框
+    window.onclick = function(event) {
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>
